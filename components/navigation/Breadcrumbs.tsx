@@ -20,7 +20,7 @@ const Breadcrumbs = ({className}: { className?: string }) => {
                 const href = '/' + pathSegments.slice(0, index + 1).join('/');
                 const label = segment.charAt(0).toUpperCase() + segment.slice(1);
                 return (
-                    <BreadcrumbItem key={index} underline={'hover'}>
+                    <BreadcrumbItem key={href} underline={'hover'}>
                         <Link href={href}>{label}</Link>
                     </BreadcrumbItem>
                 );

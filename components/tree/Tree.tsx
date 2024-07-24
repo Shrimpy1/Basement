@@ -1,14 +1,19 @@
-'use client';
-
-import {Node} from "@/types/Node";
+import {NodeData} from "@/types/NodeData";
 import Branch from "@/components/tree/Branch";
 import ConnectionMap from "@/components/tree/ConnectionMap";
+import {getAll} from "@/app/db";
 
-const Tree = ({treeData}: { treeData: Array<Node> }) => {
+const Tree = async () => {
+    let data: NodeData[] | undefined = await getAll();
+
+    if (!data) {
+        return
+    }
+
     return (
         <>
-            <Branch id={0} treeData={treeData}></Branch>
-            <ConnectionMap treeData={treeData}></ConnectionMap>
+            <Branch id={0} treeData={data}></Branch>
+            <ConnectionMap treeData={data}></ConnectionMap>
         </>
     );
 };

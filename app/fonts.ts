@@ -1,4 +1,9 @@
-import {Inter, AR_One_Sans, DM_Sans, Chivo_Mono} from "next/font/google";
+import {Inter, AR_One_Sans, DM_Sans, Chivo_Mono, Indie_Flower} from "next/font/google";
+
+export const indie_flower = Indie_Flower({
+    subsets: ['latin'],
+    weight: ['400']
+})
 
 export const inter = Inter({
     subsets: ['latin'],

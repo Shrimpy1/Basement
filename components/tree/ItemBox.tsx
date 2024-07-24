@@ -1,14 +1,14 @@
-import {Node} from "@/types/Node";
 import Body from "@/components/typography/Body";
+import {ReactNode} from "react";
 
-const ItemBox = ({person, className}: { person: Node, className?: string }) => {
+const ItemBox = ({className, children}: {
+    className?: string,
+    children?: ReactNode
+}) => {
     return (
         <>
-            <div className={`flex flex-col h-20 w-36 bg-blue-200 ${className}`}>
-                <div className={'flex'}>
-                    <Body className={'font-bold'}>Name:</Body>
-                    <Body className={'ml-2'}>{person.name}</Body>
-                </div>
+            <div className={`flex bg-cyan-400/30 p-2 ${className}`}>
+                <Body>{children}</Body>
             </div>
         </>
     );
