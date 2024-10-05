@@ -12,13 +12,11 @@ export function createClient() {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
         {
             cookies: {
-                getAll() {
-                    return cookieStore.getAll()
+                async getAll() {
+                    return cookieStore.getAll();
                 },
-                //@ts-ignore
-                setAll(cookiesToSet) {
+                async setAll(cookiesToSet) {
                     try {
-                        //@ts-ignore
                         cookiesToSet.forEach(({name, value, options}) =>
                             cookieStore.set(name, value, options)
                         )

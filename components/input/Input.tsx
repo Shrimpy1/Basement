@@ -1,15 +1,8 @@
-import {Input as NextInput} from "@nextui-org/input";
+import {Input as NextInput, InputProps} from "@nextui-org/input";
 
-const Input = ({label, size, placeholder, isRequired, name, ...props}: {
-    label: string,
-    size: 'sm' | 'md' | 'lg',
-    placeholder: string,
-    isRequired: boolean,
-    name: string
-}) => {
+const Input = ({className, ...props}: InputProps) => {
     return (
-        <NextInput name={name} {...props} label={label} labelPlacement={'outside'} size={size}
-                   placeholder={placeholder} isRequired={isRequired}/>
+        <NextInput {...props} labelPlacement={'outside'} className={`z-0 ${className}`}/>
     );
 };
 

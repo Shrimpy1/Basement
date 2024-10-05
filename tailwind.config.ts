@@ -1,6 +1,5 @@
 import type {Config} from "tailwindcss";
 import {nextui} from "@nextui-org/react";
-import {rotate} from "next/dist/server/lib/squoosh/impl";
 
 /** @type {import('tailwindcss').Config} */
 const config: Config = {
@@ -12,10 +11,33 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            boxShadow: {
+                'shine': '0 0px 20px 10px rgba(0, 0, 0, 0.3)',
+            },
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
                 "gradient-conic":
                     "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+            },
+            colors: {
+                'background': {
+                    DEFAULT: 'rgba(var(--background), <alpha-value>)',
+                },
+                'primary': {
+                    DEFAULT: 'rgba(var(--primary), <alpha-value>)',
+                },
+                'secondary': {
+                    DEFAULT: 'rgba(var(--secondary), <alpha-value>)',
+                },
+                'danger': {
+                    DEFAULT: 'rgba(var(--danger), <alpha-value>)',
+                },
+                'foreground': {
+                    DEFAULT: 'rgba(var(--foreground), <alpha-value>)',
+                },
+                'contrast': {
+                    DEFAULT: 'rgba(var(--contrast), <alpha-value>)',
+                },
             },
             keyframes: {
                 bounce: {
@@ -36,16 +58,31 @@ const config: Config = {
                     '0%': {transform: 'rotate(0deg)'},
                     '100%': {transform: 'rotate(-360deg)'}
                 },
+                flip: {
+                    '0%': {transform: 'rotateY(0deg)'},
+                    '100%': {transform: 'rotateY(180deg)'}
+                }
             },
             animation: {
                 bounce: 'bounce 1s infinite',
                 bounce_once: 'bounce 1s',
                 spin_right: 'spin_right 1s ease-out',
                 spin_left: 'spin_left 0.7s ease-out',
+                flip: 'flip 1s ease-out'
             },
         },
     },
     darkMode: "class",
-    plugins: [nextui()],
+    plugins: [nextui(
+        {
+            themes: {
+                light: {},
+                dark: {}
+            },
+            layout: {
+                disabledOpacity: "0.3"
+            }
+        }
+    )],
 };
 export default config;

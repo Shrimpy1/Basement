@@ -4,7 +4,8 @@ const nextConfig = {
         fetches: {
             fullUrl: true
         }
-    }
+    },
+    transpilePackages: ['lucide-react']
 };
 
 export default nextConfig;

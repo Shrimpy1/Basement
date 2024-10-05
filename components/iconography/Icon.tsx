@@ -1,9 +1,11 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {IconProp} from "@fortawesome/fontawesome-svg-core";
+import {FontAwesomeIcon, FontAwesomeIconProps} from "@fortawesome/react-fontawesome";
 
-const Icon = ({icon, ...props}: { icon: IconProp }) => {
+const Icon = ({className, ...props}: FontAwesomeIconProps) => {
     return (
-        <FontAwesomeIcon icon={icon} {...props}/>
+        <FontAwesomeIcon
+            className={`${className}`}
+            {...props}
+        />
     );
 }
 

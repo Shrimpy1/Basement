@@ -14,7 +14,7 @@ const Breadcrumbs = ({className}: { className?: string }) => {
     const pathSegments = pathname.split('/').filter(segment => segment);
 
     return (
-        <NextBreadcrumbs variant={'light'} color={'warning'} size={'lg'} className={`${className}`}>
+        <NextBreadcrumbs color={'primary'} variant={'light'} size={'lg'} className={`${className} `}>
             <BreadcrumbItem href={'/'} underline={'hover'}>Home</BreadcrumbItem>
             {pathSegments.map((segment, index) => {
                 const href = '/' + pathSegments.slice(0, index + 1).join('/');

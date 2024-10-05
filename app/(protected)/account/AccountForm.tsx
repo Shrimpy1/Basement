@@ -1,14 +1,15 @@
 'use client'
 import {useCallback, useEffect, useState} from 'react'
-import {createClient} from '@/utils/supabase/client'
+import {createClient} from '@/database/supabase/client'
 import {type User} from '@supabase/supabase-js'
+import Input from "@/components/input/Input";
+import {Button} from "@nextui-org/button";
 
 export default function AccountForm({user}: { user: User | null }) {
     const supabase = createClient()
     const [loading, setLoading] = useState(true)
     const [fullname, setFullname] = useState<string | null>(null)
     const [username, setUsername] = useState<string | null>(null)
-    const [website, setWebsite] = useState<string | null>(null)
     const [avatar_url, setAvatarUrl] = useState<string | null>(null)
 
     const getProfile = useCallback(async () => {
@@ -17,7 +18,7 @@ export default function AccountForm({user}: { user: User | null }) {
 
             const {data, error, status} = await supabase
                 .from('profiles')
-                .select(`full_name, username, website, avatar_url`)
+                .select(`full_name, username, avatar_url`)
                 .eq('id', user?.id)
                 .single()
 
@@ -29,7 +30,6 @@ export default function AccountForm({user}: { user: User | null }) {
             if (data) {
                 setFullname(data.full_name)
                 setUsername(data.username)
-                setWebsite(data.website)
                 setAvatarUrl(data.avatar_url)
             }
         } catch (error) {
@@ -44,23 +44,21 @@ export default function AccountForm({user}: { user: User | null }) {
     }, [user, getProfile])
 
     async function updateProfile({
+                                     fullname,
                                      username,
-                                     website,
                                      avatar_url,
                                  }: {
         username: string | null
         fullname: string | null
-        website: string | null
         avatar_url: string | null
     }) {
         try {
             setLoading(true)
-
+            
             const {error} = await supabase.from('profiles').upsert({
                 id: user?.id as string,
                 full_name: fullname,
                 username,
-                website,
                 avatar_url,
                 updated_at: new Date().toISOString(),
             })
@@ -74,56 +72,44 @@ export default function AccountForm({user}: { user: User | null }) {
     }
 
     return (
-        <div className="form-widget">
-            <div>
-                <label htmlFor="email">Email</label>
-                <input id="email" type="text" value={user?.email} disabled/>
-            </div>
-            <div>
-                <label htmlFor="fullName">Full Name</label>
-                <input
-                    id="fullName"
-                    type="text"
-                    value={fullname || ''}
-                    onChange={(e) => setFullname(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="username">Username</label>
-                <input
-                    id="username"
-                    type="text"
-                    value={username || ''}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="website">Website</label>
-                <input
-                    id="website"
-                    type="url"
-                    value={website || ''}
-                    onChange={(e) => setWebsite(e.target.value)}
-                />
-            </div>
+        <div className="form-widget flex flex-col gap-5">
+            <Input
+                label={'Email'}
+                id={'email'}
+                name={'email'}
+                type={'email'}
+                value={user?.email} isDisabled
+            />
 
-            <div>
-                <button
-                    className="button primary block"
-                    onClick={() => updateProfile({fullname, username, website, avatar_url})}
-                    disabled={loading}
-                >
-                    {loading ? 'Loading ...' : 'Update'}
-                </button>
-            </div>
+            <Input
+                label={'Username'}
+                id={'username'}
+                value={username || ''}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder={'Enter your username'}
+            />
 
-            <div>
-                <form action="/auth/signout" method="post">
-                    <button className="button block" type="submit">
-                        Sign out
-                    </button>
-                </form>
-            </div>
+            <Input
+                label={'Full Name'}
+                id={'fullName'}
+                value={fullname || ''}
+                onChange={(e) => setFullname(e.target.value)}
+                placeholder={'Enter your full name'}
+            />
+
+            <Button
+                className="button primary block"
+                onClick={() => updateProfile({fullname, username, avatar_url})}
+                disabled={loading}
+            >
+                {loading ? 'Loading ...' : 'Update'}
+            </Button>
+
+            <form action="/auth/signout" method="post">
+                <Button className="button block" type="submit">
+                    Sign out
+                </Button>
+            </form>
         </div>
     )
 }
