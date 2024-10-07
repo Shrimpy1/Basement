@@ -1,29 +1,56 @@
-import NextLink from "next/link";
+import {Link as NextUILink, LinkProps} from "@nextui-org/link";
 import React from "react";
 
-const Link = ({href, className, size = 'sm', children, ...props}: {
-    href: string,
-    className?: string,
-    children?: React.ReactNode,
-    size?: 'sm' | 'md' | 'lg' | 'xl'
-}) => {
-    let sizeClass: string = 'sm after:border-b-1';
+type CustomButtonProps = LinkProps & {
+    size?: 'sm' | 'md' | 'lg' | 'xl',
+}
+const Link = ({className, color = 'foreground', size = 'sm', children, ...props}: CustomButtonProps) => {
+    let sizeClass: string = 'sm after:h-0.5';
+    let underlineClass: string = ''
+
     switch (size) {
         case "md":
-            sizeClass = 'text-md after:border-b-1';
+            sizeClass = 'text-md after:h-0.5';
             break;
         case "lg":
-            sizeClass = 'text-lg after:border-b-2';
+            sizeClass = 'text-lg after:h-0.5';
             break;
+        // @ts-ignore
         case "xl":
-            sizeClass = 'text-xl after:border-b-2';
+            sizeClass = 'text-xl after:h-0.5';
             break;
+    }
+
+    switch (color) {
+        case 'primary':
+            underlineClass = 'after:bg-primary'
+            break
+        case 'secondary':
+            underlineClass = 'after:bg-secondary'
+            break
+        case 'foreground':
+            underlineClass = 'after:bg-foreground'
+            break
+        case 'success':
+            underlineClass = 'after:bg-success'
+            break
+        case 'warning':
+            underlineClass = 'after:bg-warning'
+            break
+        case 'danger':
+            underlineClass = 'after:bg-danger'
+            break
+        default:
+            underlineClass = 'after:bg-primary'
+            break
     }
 
     return (
         <div className={'relative'}>
-            <NextLink href={href} {...props}
-                      className={`${className} ${sizeClass} relative after:content-[''] after:w-0 after:bg-white after:absolute after:left-0 after:bottom-0 hover:after:w-full after:duration-300`}>{children}</NextLink>
+            <NextUILink {...props} color={color}
+                        className={`${className} ${sizeClass} ${underlineClass} relative after:content-[''] after:w-0 after:absolute after:left-0 after:bottom-0 hover:after:w-full after:duration-300 after:ease-in`}>
+                {children}
+            </NextUILink>
         </div>
     );
 };

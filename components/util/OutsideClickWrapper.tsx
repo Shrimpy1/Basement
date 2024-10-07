@@ -17,7 +17,7 @@ const useOutsideClickHandler = (ref: RefObject<any>, handler: () => void) => {
     }, [ref, handler]);
 };
 
-const OutsideClickHandler = ({children, onClickOutside}: {
+const OutsideClickWrapper = ({children, onClickOutside}: {
     children: ReactNode,
     onClickOutside: () => void
 }) => {
@@ -27,4 +27,4 @@ const OutsideClickHandler = ({children, onClickOutside}: {
     return <div ref={wrapperRef}>{children}</div>
 }
 
-export default OutsideClickHandler;
+export default OutsideClickWrapper;

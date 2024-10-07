@@ -2,12 +2,11 @@
 
 import {Task} from "@/types/Task";
 import TaskItem from "@/components/task/TaskItem";
-import {useActionState, useOptimistic, useState} from 'react'
+import {useOptimistic, useState} from 'react'
 import {saveTask} from "@/app/database/task";
 import Input from "@/components/input/Input";
 import {Button} from "@nextui-org/button";
 import Body from "@/components/typography/Body";
-import {useLoading} from "@/components/providers/LoadingProvider";
 
 const TaskList = ({list, className}: { list: Task[], className?: string }) => {
     const [formState, setFormState] = useState({message: '', error: ''})
@@ -42,9 +41,9 @@ const TaskList = ({list, className}: { list: Task[], className?: string }) => {
     }
 
     const formAction = async (formData: FormData) => {
-        const todo = formData.get('todo')
+        const todo = formData.get('todo') as string
 
-        if (!todo || typeof todo !== 'string') {
+        if (!todo) {
             setFormState({...formState, error: 'Please enter a task', message: ''})
             return
         }
@@ -52,7 +51,7 @@ const TaskList = ({list, className}: { list: Task[], className?: string }) => {
         addOptimisticTask(todo)
 
         try {
-            const {message} = await saveTask(todo)
+            const {message} = await saveTask(formData)
             setFormState({...formState, error: '', message})
         } catch (e) {
             // @ts-ignore
@@ -60,14 +59,13 @@ const TaskList = ({list, className}: { list: Task[], className?: string }) => {
         }
     }
 
-
     return (
         <>
             <form action={formAction} className={'flex flex-col gap-4'}>
                 <div className={'flex items-end gap-4'}>
                     <Input label={'TODO'} size={'md'} placeholder={"Add new tasks"} isRequired
                            name={'todo'}/>
-                    <Button type={'submit'}>Add</Button>
+                    <Button type={'submit'} color={'primary'}>Add</Button>
                 </div>
                 {formState.error && <Body className={'text-danger italic'}>{formState.error}</Body>}
                 {formState.message && <Body className={'italic'}>{formState.message}</Body>}

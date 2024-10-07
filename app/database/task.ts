@@ -24,7 +24,9 @@ export const getAllTasks = async (): Promise<Task[]> => {
 }
 
 
-export const saveTask = async (todo: string) => {
+export const saveTask = async (formData: FormData) => {
+    const todo = formData.get('todo') as string
+
     const supabase = createClient()
     try {
         await supabase.from('task').insert({todo: todo})

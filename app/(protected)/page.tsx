@@ -1,5 +1,6 @@
 import TaskList from "@/components/task/TaskList";
 import {getAllTasks} from "@/app/database/task";
+import Link from "@/components/link/Link";
 
 const Home = async () => {
     const taskList = await getAllTasks()
@@ -12,10 +13,6 @@ const Home = async () => {
 
             {/*<Divider className={'my-5'}></Divider>*/}
             {/*<TitleAnimation/>*/}
-
-            <div>
-                Hello World
-            </div>
 
             <TaskList list={taskList}/>
         </main>

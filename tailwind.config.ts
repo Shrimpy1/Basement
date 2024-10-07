@@ -38,6 +38,9 @@ const config: Config = {
                 'contrast': {
                     DEFAULT: 'rgba(var(--contrast), <alpha-value>)',
                 },
+                'accent': {
+                    DEFAULT: 'rgba(var(--accent), <alpha-value>)',
+                },
             },
             keyframes: {
                 bounce: {
