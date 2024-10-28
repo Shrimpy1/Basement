@@ -8,9 +8,11 @@ import TextLarge from "@/components/typography/TextLarge";
 import ThemeSwitcher from "@/components/theme-switcher/ThemeSwitcher";
 import Image from "next/image";
 import SettingBar from "@/components/navigation/SettingBar";
+import {User} from "@supabase/supabase-js";
 
-const Header = ({bgClass}: {
-    bgClass?: string
+const Header = ({bgClass, user}: {
+    bgClass?: string,
+    user: User | null
 }) => {
     const scrollY = useScrollPosition();
     const [designClass, setDesignClass] = useState('');
@@ -54,7 +56,7 @@ const Header = ({bgClass}: {
 
             <div className={'flex gap-5 items-center'}>
                 <ThemeSwitcher/>
-                <SettingBar/>
+                <SettingBar user={user}/>
             </div>
 
         </header>

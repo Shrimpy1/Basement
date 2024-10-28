@@ -33,7 +33,7 @@ export default function AccountForm({user}: { user: User | null }) {
                 setAvatarUrl(data.avatar_url)
             }
         } catch (error) {
-            alert('Error loading user data!')
+            console.log('Error loading user data!')
         } finally {
             setLoading(false)
         }
@@ -54,7 +54,7 @@ export default function AccountForm({user}: { user: User | null }) {
     }) {
         try {
             setLoading(true)
-            
+
             const {error} = await supabase.from('profiles').upsert({
                 id: user?.id as string,
                 full_name: fullname,
@@ -98,7 +98,7 @@ export default function AccountForm({user}: { user: User | null }) {
             />
 
             <Button
-                className="button primary block"
+                color={'primary'}
                 onClick={() => updateProfile({fullname, username, avatar_url})}
                 disabled={loading}
             >
@@ -106,7 +106,7 @@ export default function AccountForm({user}: { user: User | null }) {
             </Button>
 
             <form action="/auth/signout" method="post">
-                <Button className="button block" type="submit">
+                <Button type="submit" variant={'ghost'} color={'danger'}>
                     Sign out
                 </Button>
             </form>
