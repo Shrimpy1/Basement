@@ -5,17 +5,18 @@ import {createClient} from "@/database/supabase/server";
 const MainLayout = async ({children}: {
     children: ReactNode
 }) => {
-    const supabase = createClient()
+    const supabase = await createClient()
     const {data: {user}} = await supabase.auth.getUser()
 
-    if (!user) {
-        redirect('/login')
-    }
+    // if (!user) {
+    //     redirect('/login')
+    // }
 
     return (
-        {children}
+        <>
+            {children}
+        </>
     )
-        ;
 };
 
 export default MainLayout;

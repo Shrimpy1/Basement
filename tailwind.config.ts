@@ -41,6 +41,18 @@ const config: Config = {
                 'accent': {
                     DEFAULT: 'rgba(var(--accent), <alpha-value>)',
                 },
+                'main1': {
+                    DEFAULT: 'rgba(var(--main1), <alpha-value>)',
+                },
+                'main2': {
+                    DEFAULT: 'rgba(var(--main2), <alpha-value>)',
+                },
+                'bg1': {
+                    DEFAULT: 'rgba(var(--background1), <alpha-value>)',
+                },
+                'highlight': {
+                    DEFAULT: 'rgba(var(--highlight), <alpha-value>)',
+                },
             },
             keyframes: {
                 bounce: {

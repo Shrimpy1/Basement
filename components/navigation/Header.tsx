@@ -46,7 +46,7 @@ const Header = ({bgClass, user}: {
             sticky top-0 left-0 z-30 h-16 w-full inline-flex items-center justify-between p-10 
             duration-500 ease-in-out  
             border-b-1 border-neutral-500/20 
-            text-accent backdrop-blur-lg
+            bg-primary backdrop-blur-lg text-white
             `}>
             <Link href={'/'} className={'flex items-center gap-x-2 group'}>
                 <Image alt={'logo'} src={'/ebi.png'} width={40}

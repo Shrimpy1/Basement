@@ -60,7 +60,7 @@ const TaskList = ({list, className}: { list: Task[], className?: string }) => {
     }
 
     return (
-        <>
+        <div className={'flex flex-col gap-5'}>
             <form action={formAction} className={'flex flex-col gap-4'}>
                 <div className={'flex items-end gap-4'}>
                     <Input label={'TODO'} size={'md'} placeholder={"Add new tasks"} isRequired
@@ -76,7 +76,7 @@ const TaskList = ({list, className}: { list: Task[], className?: string }) => {
                               index={index} key={index} task={task}/>
                 ))}
             </div>
-        </>
+        </div>
     );
 }
 

@@ -5,7 +5,7 @@ import {createClient} from "@/database/supabase/server";
 const Layout = async ({children}: {
     children: ReactNode
 }) => {
-    const supabase = createClient()
+    const supabase = await createClient()
     const {data: {user}} = await supabase.auth.getUser()
 
     if (user) {

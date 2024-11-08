@@ -5,7 +5,7 @@ import {createClient} from "@/database/supabase/server";
 import {Task} from "@/types/Task";
 
 export const getAllTasks = async (): Promise<Task[]> => {
-    const supabase = createClient()
+    const supabase = await createClient()
     const {data: {user}} = await supabase.auth.getUser()
 
     if (!user) {
@@ -27,7 +27,7 @@ export const getAllTasks = async (): Promise<Task[]> => {
 export const saveTask = async (formData: FormData) => {
     const todo = formData.get('todo') as string
 
-    const supabase = createClient()
+    const supabase = await createClient()
     try {
         await supabase.from('task').insert({todo: todo})
         revalidatePath('/')
@@ -38,7 +38,7 @@ export const saveTask = async (formData: FormData) => {
 }
 
 export const deleteTask = async (id: number) => {
-    const supabase = createClient()
+    const supabase = await createClient()
     try {
         await supabase.from('task').delete().eq('id', id)
         revalidatePath('/')
